@@ -1,0 +1,16 @@
+global reads
+
+probe vfs.read 
+{
+	reads[execname()]++
+}
+
+probe timer.s(3) 
+{
+	foreach(name in reads) {
+		printf("%s : %d \n", name, reads[name])
+	}	
+}
+
+
+
